@@ -8,16 +8,24 @@
 
 #include "Node.h"
 
+#define ENCODED "\\\\ENCODED\\\\"
+
 class Huffman {
 public:
+    explicit Huffman(map<char, string> code);
+
     explicit Huffman(map<char, int> reversed_freq_map);
 
-    void print_codes();
+    string get_codes();
+
+    string decode(queue<char> str);
+
+    string encode(queue<char> str);
 
 private:
-    map<int, char> freq_map;
-    map<char, int> generated_codes;
     Node *root;
+    vector<pair<int, char> > freq_arr;
+    map<char, string> generated_codes;
     priority_queue<Node *, vector<Node *>, order_by_freq> heap;
 
     void __build_freq_map(map<char, int> reversed_freq_map);
