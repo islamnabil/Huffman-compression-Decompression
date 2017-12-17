@@ -1,4 +1,5 @@
 .idea
 cmake-build-debug
 Huffman_compression_Decompression
-src.txt.bin
+*.huff
+*.txt

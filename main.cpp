@@ -24,11 +24,11 @@ void test_encoding() {
 }
 
 void test_decoding() {
-    My_File my_file = read_encoded_file("src.txt.bin");
+    My_File my_file = read_encoded_file(string("src.txt") + string(EXTENSION));
 
-    Huffman huffman(my_file.code);
+//    Huffman huffman(my_file.code);
 
-    string original_file = huffman.decode(my_file.content);
+//    string original_file = huffman.decode(my_file.content);
 
-    write_file("src.txt", original_file);
+//    write_file("src.txt1", original_file);
 }

@@ -4,17 +4,18 @@
 
 #include "Huffman.h"
 
-Huffman::Huffman(map<char, string> codes) {
-    this->generated_codes = move(codes);
+Huffman::Huffman(map<string, int> loaded_codes) {
+    this->loaded_codes = move(loaded_codes);
 
     // print loaded codes
     cout << "\n\nLoaded codes:\n";
-    for (pair<char, string> code: this->generated_codes)
-        cout << code.first << ": " << code.second << endl;
+    for (pair<string, char> code: this->loaded_codes)
+        cout << code.second << ": " << code.first << endl;
+
     cout << "\n\n";
 }
 
-Huffman::Huffman(map<char, int> reversed_freq_map) {
+Huffman::Huffman(map<int, int> reversed_freq_map) {
     __build_freq_map(move(reversed_freq_map));
     __generate();
 
@@ -23,27 +24,26 @@ Huffman::Huffman(map<char, int> reversed_freq_map) {
     cout << "\n\n";
 }
 
-string Huffman::decode(queue<char> str) {
-    char c;
-    Node *cur = this->root;
-    string decoded_str;
-    while (!str.empty()) {
-        c = str.front(), str.pop();
-        if (c == '0')
-            cur = cur->left;
-        else
-            cur = cur->right;
+vector<int> Huffman::decode(queue<int> encoded_file) {
+    string encoded_str;
+    vector<int> decoded_str;
+    while (!encoded_file.empty()) {
+        encoded_str.push_back((char) encoded_file.front());
+        encoded_file.pop();
 
-        if (cur->data != INTERNAL)
-            decoded_str.push_back(cur->data);
+        if (this->loaded_codes.find(encoded_str) != this->loaded_codes.end()) {
+            decoded_str.push_back(this->loaded_codes[encoded_str]);
+            encoded_str.clear();
+        }
     }
+
     return decoded_str;
 }
 
-string Huffman::encode(queue<char> str) {
+string Huffman::encode(queue<int> str) {
     string encoded_str;
     while (!str.empty()) {
-        char c = str.front();
+        int c = str.front();
         str.pop();
         encoded_str += this->generated_codes[c];
     }
@@ -63,8 +63,8 @@ string Huffman::get_codes() {
     return codes + "\n";
 }
 
-void Huffman::__build_freq_map(map<char, int> reversed_freq_map) {
-    for (pair<char, int> reversed_pair: reversed_freq_map)
+void Huffman::__build_freq_map(map<int, int> reversed_freq_map) {
+    for (pair<int, int> reversed_pair: reversed_freq_map)
         this->freq_arr.emplace_back(make_pair(reversed_pair.second, reversed_pair.first));
     sort(freq_arr.begin(), freq_arr.end());
 }

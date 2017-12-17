@@ -12,23 +12,24 @@
 
 class Huffman {
 public:
-    explicit Huffman(map<char, string> code);
+    explicit Huffman(map<string, int> loaded_code);
 
-    explicit Huffman(map<char, int> reversed_freq_map);
+    explicit Huffman(map<int, int> reversed_freq_map);
 
     string get_codes();
 
-    string decode(queue<char> str);
+    vector<int> decode(queue<int> encoded_file);
 
-    string encode(queue<char> str);
+    string encode(queue<int> str);
 
 private:
     Node *root;
-    vector<pair<int, char> > freq_arr;
-    map<char, string> generated_codes;
+    vector<pair<int, int> > freq_arr;
+    map<int, string> generated_codes;
+    map<string, int> loaded_codes;
     priority_queue<Node *, vector<Node *>, order_by_freq> heap;
 
-    void __build_freq_map(map<char, int> reversed_freq_map);
+    void __build_freq_map(map<int, int> reversed_freq_map);
 
     void __print(Node *node, const string &code_str = "");
 

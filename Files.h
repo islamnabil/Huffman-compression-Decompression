@@ -10,14 +10,15 @@
 #include <string>
 #include <map>
 
+#define EXTENSION ".huff"
 #define ENCODED "\\\\ENCODED\\\\"
 
 using namespace std;
 
 typedef struct {
-    map<char, string> code;
-    map<char, int> freq;
-    queue<char> content;
+    map<string, char> code;
+    map<int, int> freq;
+    queue<int> content;
 } My_File;
 
 My_File read_file(const string &file_name);
@@ -27,5 +28,9 @@ void write_file(const string &file_name, const string &content);
 My_File read_encoded_file(const string &file_name);
 
 void write_encoded_file(const string &file_name, const string &content, const string &codes);
+
+void compare_file_size(const string &file_name);
+
+string decode(int hex);
 
 #endif //HUFFMAN_COMPRESSION_DECOMPRESSION_FILES_H
