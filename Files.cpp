@@ -16,8 +16,9 @@ My_File read_file(const string &file_name) {
     while (true) {
         int c = in.get();
         if (c == EOF) break;
-        if (c == '\t' || c == ' ' || c == '\n')continue;
-
+        if (c == ' ') c = SPACE;
+        if (c == '\n') c = NEW_LINE;
+        if (c == '\t') c = TAB;
         file.content.push(c);
         file.freq[c]++;
     }
@@ -28,7 +29,12 @@ My_File read_file(const string &file_name) {
 
 void write_file(const string &file_name, vector<int> &content) {
     ofstream out(file_name.substr(0, file_name.find_last_of('.')), ios::out);
-    for (int i: content) out << (char) i;
+    for (int i: content) {
+        if (i == SPACE) out << " ";
+        else if (i == NEW_LINE) out << endl;
+        else if (i == TAB) out << "\t";
+        else out << (char) i;
+    }
     out.close();
 }
 

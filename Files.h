@@ -12,8 +12,9 @@
 
 #define EXTENSION ".huff"
 #define ENCODED "\\\\ENCODED\\\\"
-#define SPACE '@'
-#define NEW_LINE '$'
+#define SPACE '$'
+#define NEW_LINE '%'
+#define TAB '^'
 
 using namespace std;
 
