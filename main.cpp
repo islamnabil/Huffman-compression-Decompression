@@ -8,7 +8,7 @@ void test_decoding();
 int main() {
     test_encoding();
 
-//    test_decoding();
+    test_decoding();
 
     return 0;
 }
@@ -26,9 +26,9 @@ void test_encoding() {
 void test_decoding() {
     My_File my_file = read_encoded_file(string("src.txt") + string(EXTENSION));
 
-//    Huffman huffman(my_file.code);
+    Huffman huffman(my_file.code);
 
-//    string original_file = huffman.decode(my_file.content);
+    vector<int> original_file = huffman.decode(my_file.content);
 
-//    write_file("src.txt1", original_file);
+    write_file("src.txt1.", original_file);
 }

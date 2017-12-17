@@ -16,7 +16,8 @@ My_File read_file(const string &file_name) {
     while (true) {
         int c = in.get();
         if (c == EOF) break;
-        if (c == ' ' || c == '\t' || c == '\n') continue;
+        if (c == '\t' || c == ' ' || c == '\n')continue;
+
         file.content.push(c);
         file.freq[c]++;
     }
@@ -25,9 +26,9 @@ My_File read_file(const string &file_name) {
     return file;
 }
 
-void write_file(const string &file_name, const string &content) {
+void write_file(const string &file_name, vector<int> &content) {
     ofstream out(file_name.substr(0, file_name.find_last_of('.')), ios::out);
-    out << content;
+    for (int i: content) out << (char) i;
     out.close();
 }
 
@@ -42,7 +43,7 @@ My_File read_encoded_file(const string &file_name) {
 
     int cnt = 0;
     in >> cnt;
-    map<string, char> codes;
+    map<string, int> codes;
     while (cnt--) {
         string key, value;
         in >> key >> value;

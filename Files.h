@@ -12,18 +12,20 @@
 
 #define EXTENSION ".huff"
 #define ENCODED "\\\\ENCODED\\\\"
+#define SPACE '@'
+#define NEW_LINE '$'
 
 using namespace std;
 
 typedef struct {
-    map<string, char> code;
+    map<string, int> code;
     map<int, int> freq;
     queue<int> content;
 } My_File;
 
 My_File read_file(const string &file_name);
 
-void write_file(const string &file_name, const string &content);
+void write_file(const string &file_name, vector<int> &content);
 
 My_File read_encoded_file(const string &file_name);
 
